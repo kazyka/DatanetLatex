@@ -177,21 +177,21 @@ In this assignemt we will be looking at how to implement a simple HTTP client, t
 \section{Introduction}
 I have written the HTTP client in python and you are able to run in from a terminal. In order to run it you need to write two commands i.e. \texttt{www.randomwebsite.com filename}. The first part is the website you wish the client to send a \texttt{GET} request to and the second is the name the savefile should have.
 
-The libraries I use are socket and sys in the HTTP client and in my parser I use itertools and unittest.
+The libraries I use are myparser, socket and sys in the HTTP client and in my parser I use itertools and unittest.
 
 The function that I use to split my url is \texttt{stringToUrl(myurl)}, where the variable name \texttt{myurl} the string I wish to parse.
 I start with splitting after \texttt{'//'} and then I check wether the user have given me \texttt{HTTPS} as input. If this is true, then I raise an error and tell the user that \texttt{HTTPS} is not implemented and that they should use \texttt{HTTP} instead.
 After this I check the length of my list. I the length is greater than 1 then the user have written \texttt{http://www.example.com} but if the length is 1 then the user have written \texttt{www.example.com} and if this is true, then I add the \texttt{HTTP} for the user and insert both the scheme and netloc into a list.\footnote{The scheme is 'http' where as the netloc is 'www.example.com'}
-
-
+From this point I check wether the netloc contains \texttt{:} or \texttt{/}. If the netloc has \texttt{:} then it means that there is a port and I split it. After I split it I add \texttt{:} in between the netloc and the port number i.e. I now have [scheme // netloc : port]. If the netloc have any folder then in my list I have [... port/folder/folder2] and then I need to check if this is true. If there are any folders I split again and then I flatten the list, because I end up with a list of lists. In the end of the parser I add a \texttt{/} after the netloc and \texttt{//} before the netloc so the format should be as \texttt{http_URL = "http:" "//" host [ ":" port ] [ abs_path [ "?" query ]]}
+For now I only need to implement the query
 
 
 This HTTP client can do redirect if you should get an error code 30x. It will use recursion to find the new location.
 
 If you should be able to get a status code 200, then the client will write to the filename the \texttt{GET} request.
 
-
-
+\section{Testing}
+For the urlparser I have unittesting to check wether the code is following the format \texttt{http_URL = "http:" "//" host [ ":" port ] [ abs_path [ "?" query ]]}. There are no error and the unittest can be found in urlparser60.py
 
 
 
