@@ -46,8 +46,8 @@
 % For tracking purposes - this is V2.0 - May 2012
 
 \documentclass{sig-alternate-05-2015}
-
-
+\usepackage{hyperref}
+\usepackage{float}
 
 \begin{document}
 
@@ -121,7 +121,7 @@ Mirza Hasanbasic
 
 \maketitle
 \begin{abstract}
-In this assignemt we will be looking at how to implement a simple HTTP client, that will have a subset of the entire HTTP protocol. The HTTP client will still be able to communicate with servers
+In this assignment we will be looking at how to implement a simple HTTP client, that will have a subset of the entire HTTP protocol. The HTTP client will still be able to communicate with servers. There will be performance and validation discussion about the HTTP client as well as the limitations and testing of the client.
 \end{abstract}
 
 
@@ -174,36 +174,58 @@ In this assignemt we will be looking at how to implement a simple HTTP client, t
 %\terms{Theory}
 
 
-\section{Introduction}
-I have written the HTTP client in python and you are able to run in from a terminal. In order to run it you need to write two commands i.e. \texttt{www.randomwebsite.com filename}. The first part is the website you wish the client to send a \texttt{GET} request to and the second is the name the savefile should have.
+\section{The client}
+I have written the HTTP client in python and you are able to run in from a terminal. The file should be executable and in order to run it you need to write two arguments where the first is the desired website you wish to send a request to and the second argument is the name the savefile should have. There is a possibility for a third argument, but this has not been implemented yet. The third argumentive would only have been useful to us since it would work like a debug mode where we can print, but due to time constraint we have not done this.
 
-The libraries I use are myparser, socket and sys in the HTTP client and in my parser I use itertools and unittest.
+To run the HTTPclient you simply write the following in the console \texttt{./HTTPclient.py 'website' 'filename'} remember that if you download an \texttt{.exe} file, the filename should have an extension to match it.
+
+The libraries I use are myparser, socket and sys in the HTTP client and in my parser I use itertools and unittest. The unittest is a framework I use in myparser to test if I get a correct output
 
 The function that I use to split my url is \texttt{stringToUrl(myurl)}, where the variable name \texttt{myurl} the string I wish to parse.
 I start with splitting after \texttt{'//'} and then I check wether the user have given me \texttt{HTTPS} as input. If this is true, then I raise an error and tell the user that \texttt{HTTPS} is not implemented and that they should use \texttt{HTTP} instead.
 After this I check the length of my list. I the length is greater than 1 then the user have written \texttt{http://www.example.com} but if the length is 1 then the user have written \texttt{www.example.com} and if this is true, then I add the \texttt{HTTP} for the user and insert both the scheme and netloc into a list.\footnote{The scheme is 'http' where as the netloc is 'www.example.com'}
-From this point I check wether the netloc contains \texttt{:} or \texttt{/}. If the netloc has \texttt{:} then it means that there is a port and I split it. After I split it I add \texttt{:} in between the netloc and the port number i.e. I now have [scheme // netloc : port]. If the netloc have any folder then in my list I have [... port/folder/folder2] and then I need to check if this is true. If there are any folders I split again and then I flatten the list, because I end up with a list of lists. In the end of the parser I add a \texttt{/} after the netloc and \texttt{//} before the netloc so the format should be as \texttt{http_URL = "http:" "//" host [ ":" port ] [ abs_path [ "?" query ]]}
-For now I only need to implement the query
+From this point I check wether the netloc contains \texttt{:} or \texttt{/}. If the netloc has \texttt{:} then it means that there is a port and I split it. After I split it I add \texttt{:} in between the netloc and the port number i.e. I now have [scheme // netloc : port]. If the netloc have any folder then in my list I have [... port/folder/folder2] and then I need to check if this is true. If there are any folders I split again and then I flatten the list, because I end up with a list of lists. In the end of the parser I add a \texttt{/} after the netloc and \texttt{//} before the netloc so the format should be as \texttt{http\_URL = "http:" "//" host [ ":" port ] [ abs\_path [ "?" query ]]}
+For now I only need to implement the query part, so input as \-\texttt{en.wikipedia.org/wiki/Uniform\_Resource\_identifier\#Examples} won't work
 
-
+The HTTP client will check wether you have given a port as part of the connection string or not. If not, then the default port will be 80.
+As for now, I are using \texttt{HTTP/1.0} because it was not possible to connect to some sites with \texttt{HTTP/1.1}.
 This HTTP client can do redirect if you should get an error code 30x. It will use recursion to find the new location.
-
 If you should be able to get a status code 200, then the client will write to the filename the \texttt{GET} request.
 
-\section{Testing}
-For the urlparser I have unittesting to check wether the code is following the format \texttt{http_URL = "http:" "//" host [ ":" port ] [ abs_path [ "?" query ]]}. There are no error and the unittest can be found in urlparser60.py
+\subsection{Code structure}
+I have two files (\texttt{HTTPClient.py} and \texttt{myurlparser.py}). In the \texttt{HTTPClient.py} i have two functions. One is the clientconnect and the second one handle saving to files. In the \texttt{myurlparser.py} i only have an urlparser as function and this function handles the parse of the url
+
+\subsection{Performance and validation}
+The performance of the client is fine. I have manually tried to time the download speed, since I have not had time to implement this yet and the download speed matches the speed when I use google chrome with a 5\% in difference.
+In short the validation matches, but only if you download an \texttt{.exe} file. See the subsection testing for more in detail description about this.
+The client can redirect the user if you should run into this.
 
 
+\subsection{Client limitations}
+For now, our urlparser doesn't handle a query in the link. This is a limitation in the urlparser the I have implemented.
+As I explained in the subsection "Performance and validation" our client doesn't handle other files than \texttt{.exe} since we get some random input in the first line of a file if it is a \texttt{.txt}. In the subsection testing I have explained this and given an example.
 
+
+\subsection{Testing}
+For the urlparser I have unittesting to check wether the code is following the format \texttt{http\_URL = "http:" "//" host [ ":" port ] [ abs\_path [ "?" query ]]}. There are no error and the unittest can be found in urlparser60.py and in the appendix I have a picture of the unittest if you do not wish to run it.
+
+The HTTPclient should be able to download a file, this I have tried and after the file is downloaded I have checked the shasum against what it should be.
+The way I do this, is in the console where I write \texttt{./HTTPclient 'website' 'filename'}\footnote{\href{https://download.jetbrains.com/python/pycharm-community-2016.1.3.exe.sha256}{The sha256 sum} and the file I download \href{http://download.jetbrains.com/python/pycharm-community-2016.1.3.exe}{The executable}}. I check the checksum manually, so in my console I run \texttt{shasum -a 256 filename} and it matches the checksum.
+But this does only work with \texttt{.exe} files. If I try to check against a \texttt{.txt} or \text{.html} file then in the top of the file I get a random input in the file i.e. the file changes. I have not been able to solve this, so for now the HTTPclient will only work with an \texttt{.exe} file. As an example to the \texttt{.txt} file error I get, I have used \href{http://anonscm.debian.org/viewvc/webwml/webwml/english/mirror/Mirrors.masterlist?view=co}{this site}. As you can see the first line is \text{Site: ftp-master.debian.org} but when I send a request with my HTTPclient and download the file my first line will be \text{1f90} or something else and the second line is \texttt{Site: ftp-master.debian.org} as in the link. So for now this HTTPclient only works for \texttt{.exe} files.
 
 %APPENDICES are optional
 %\balancecolumns
 \appendix
 %Appendix A
 \section{Headings in Appendices}
-The rules about hierarchical headings discussed above for
-the body of the article are different in the appendices.
-In the \textbf{appendix} environment, the command
+As seen in the picture below, the the unittest is running as it should, with no errors
+ 
+\newpage
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.7]{unittestting.jpg}
+\end{figure}
+
 
 %\balancecolumns % GM June 2007
 % That's all folks!
