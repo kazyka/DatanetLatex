@@ -61,10 +61,26 @@
 %\setcopyright{cagovmixed}
 
 
+% DOI
+\doi{10.475/133_7}
+
+% ISBN
+\isbn{0000-42-1337}
+
+%Conference
+\conferenceinfo{Life '16}{May 25, 2016, DK}
+
+\acmPrice{\$15.00}
+
+%
+% --- Author Metadata here ---
+\conferenceinfo{DIKU}{'16 El Diku, Copenhagen}
 
 
-\title{Http client}
-\subtitle{[Ugeopgave 1]
+
+
+\title{Http Server}
+\subtitle{[Ugeopgave 2]
 \titlenote{}}
 %
 % You need the command \numberofauthors to handle the 'placement
@@ -121,7 +137,7 @@ Mirza Hasanbasic
 
 \maketitle
 \begin{abstract}
-In this assignment we will be looking at how to implement a simple HTTP client, that will have a subset of the entire HTTP protocol. The HTTP client will still be able to communicate with servers. There will be performance and validation discussion about the HTTP client as well as the limitations and testing of the client.
+In this assignment we will be looking at how to implement a simple HTTP server, that will have a subset of the entire HTTP protocol. The HTTP server will still be able to communicate with client and can get multiple connections because of thread implementation. There will be performance and validation discussion about the HTTP server as well as the limitations and testing of the server.
 \end{abstract}
 
 
@@ -174,57 +190,78 @@ In this assignment we will be looking at how to implement a simple HTTP client, 
 %\terms{Theory}
 
 
-\section{The client}
-I have written the HTTP client in python and you are able to run in from a terminal. The file should be executable and in order to run it you need to write two arguments where the first is the desired website you wish to send a request to and the second argument is the name the savefile should have. There is a possibility for a third argument, but this has not been implemented yet. The third argumentive would only have been useful to us since it would work like a debug mode where we can print, but due to time constraint we have not done this.
+\section{The Server}
+The pseudo coding part was made in collaboration with Mads and Mathias
 
-To run the HTTPclient you simply write the following in the console \texttt{./HTTPclient.py 'website' 'filename'} remember that if you download an \texttt{.exe} file, the filename should have an extension to match it.
+The server is written in Python and to run it you have to type \texttt{./Server.py} and let the console window be. Now open a new console window and try to connect to the server. The default port is 5000 if this port doesn't work on your computer you may have to change it in the code on line 61.
 
-The libraries I use are myparser, socket and sys in the HTTP client and in my parser I use itertools and unittest. The unittest is a framework I use in myparser to test if I get a correct output
+You can use my \texttt{HTTPClient} to test the server or use telnet or use your own implantation. 
 
-The function that I use to split my url is \texttt{stringToUrl(myurl)}, where the variable name \texttt{myurl} the string I wish to parse.
-I start with splitting after \texttt{'//'} and then I check wether the user have given me \texttt{HTTPS} as input. If this is true, then I raise an error and tell the user that \texttt{HTTPS} is not implemented and that they should use \texttt{HTTP} instead.
-After this I check the length of my list. I the length is greater than 1 then the user have written \texttt{http://www.example.com} but if the length is 1 then the user have written \texttt{www.example.com} and if this is true, then I add the \texttt{HTTP} for the user and insert both the scheme and netloc into a list.\footnote{The scheme is 'http' where as the netloc is 'www.example.com'}
-From this point I check wether the netloc contains \texttt{:} or \texttt{/}. If the netloc has \texttt{:} then it means that there is a port and I split it. After I split it I add \texttt{:} in between the netloc and the port number i.e. I now have [scheme // netloc : port]. If the netloc have any folder then in my list I have [... port/folder/folder2] and then I need to check if this is true. If there are any folders I split again and then I flatten the list, because I end up with a list of lists. In the end of the parser I add a \texttt{/} after the netloc and \texttt{//} before the netloc so the format should be as \texttt{http\_URL = "http:" "//" host [ ":" port ] [ abs\_path [ "?" query ]]}
-For now I only need to implement the query part, so input as \-\texttt{en.wikipedia.org/wiki/Uniform\_Resource\_identifier\#Examples} won't work
+The libraries and frameworks I use are threading, socketServer, os.path, unittest and email.utils when we use the function formatdata. I also have imported serverResponse, parseRequest and returnFile into the \texttt{Server.py} file.
 
-The HTTP client will check wether you have given a port as part of the connection string or not. If not, then the default port will be 80.
-As for now, I are using \texttt{HTTP/1.0} because it was not possible to connect to some sites with \texttt{HTTP/1.1}.
-This HTTP client can do redirect if you should get an error code 30x. It will use recursion to find the new location.
-If you should be able to get a status code 200, then the client will write to the filename the \texttt{GET} request.
+The way the server work, is that it inherit from the ThreadingMixInto create a threaded connection behavior. This class defines the daemon\_threads attribute that tells the server whether it should wait for a thread termination or not. The value is False per default, which means that Python will not exit until the threads that are created by the class have exited. We have set the value to True so for every request a thread is spawned and when the request ends the thread is killed.
+
+It is important to note that the mix in class first as it overrides a method that is defined it TCPServer.
+
+So this means that the server is supporting multiple connections from clients that request some files or something else from the server.
+
+To be able to follow the HTTP standard then the server has a help function to parse the request. Here I have my \texttt{parseReqToDict}. This function will check if the request line is as follows: \texttt{Method SP Request-URI SP HTTP-Version CRLF}. So first it checks for the length of the request line and if it is different than 3 then an error is returned. If the request line is right, then if the requested method is supported if not then it throws a 400 error after that it checks for the separators.
+The way we split the data follows the \texttt{JSON} standard for an pleasant readability.
+Furthermore if the request is \texttt{HTTP/1.1} then it is required to give a \texttt{HOST} if there is non then error 400 is return
+
+For now the only method that is supported is \texttt{GET} and the headers that are supported are \texttt{host} and \texttt{connection}
+These headers are the simplest and the most necessary headers to support. 
+
+The reason I support the Host request-header is that it specifies the host and port number of the resource that is requested. It is also required that a client must include a Host header field in all HTTP/1.1 request messages and all internet based HTTP/1.1 servers must respond with a 400 (Bad request) status code to any HTTP/1.1 request messages which lacks the Host header field.
+
+The other header i.e. the connection allows the sender to specify options that are desired for that particular connection. Also HTTP/1.1 must parse the connection header field before a message is forwarded and connection options are signaled by the presence of a connection token in the connection header field. The HTTP/1.1 defines the "close" connection option for the sender to signal that the connection will be closed after completion of the response. It is also notable that HTTP/1.1 apllication that do not support persistent connection must include the "close" connection option in every message. The connection also protects from a mistaken forwarding.
+
+For the response part of the server, we need to have a correct response. For this I use the \texttt{serverResponse}. I have a response template that tells how a response will be as output. First I check if the given method a client request is supported by the server if not then I return 405 as in method not allowed. Hereafter I check for the filecontent i.e. the \texttt{abs\_path} if you only look for the localhost then it will return a list of the files in the client folder. When the filecontent has passed the \texttt{200 OK} is return back to the client. If everything fails then the client will get a 400 error as bad request.
+
 
 \subsection{Code structure}
-I have two files (\texttt{HTTPClient.py} and \texttt{myurlparser.py}). In the \texttt{HTTPClient.py} i have two functions. One is the clientconnect and the second one handle saving to files. In the \texttt{myurlparser.py} i only have an urlparser as function and this function handles the parse of the url
+I use 4 files. The 4 files are \texttt{Server.py}, \texttt{serverResponse.py}, \texttt{parseReqToDict.py} and \texttt{returnFile.py}. The only that handles the server i.e. creates it and the needed threads is the \texttt{Server.py} file and this file uses the other 3 as helper files to be sure that the parsed request is correct, that crafted response follows the HTTP RFC.
 
 \subsection{Performance and validation}
-The performance of the client is fine. I have manually tried to time the download speed, since I have not had time to implement this yet and the download speed matches the speed when I use google chrome with a 5\% in difference.
-In short the validation matches, but only if you download an \texttt{.exe} file. See the subsection testing for more in detail description about this.
-The client can redirect the user if you should run into this.
+The performance of the server is fine as the validation of the hash checksum seems to match the zip files I tested it on. Since the sums are MD5 I used \texttt{md5sum filename} and the md5sums can be seen in the appendix as well as the place where I downloaded the files from.
 
+\subsection{Limitations}
+The only limitation I could find and test was that the server timeouts when it gets a request from two or more clients that request a file larger than 512MB. The error I got was from the socketServer framework and no matter if I made the BUFFER\_SIZE bigger it wouldn't work with a bigger file than 512MB for two or more clients that made a request to the server
 
-\subsection{Client limitations}
-For now, our urlparser doesn't handle a query in the link. This is a limitation in the urlparser the I have implemented.
-As I explained in the subsection "Performance and validation" our client doesn't handle other files than \texttt{.exe} since we get some random input in the first line of a file if it is a \texttt{.txt}. In the subsection testing I have explained this and given an example.
-
+The only method that the server can handle is the GET method and it only supports two headers i.e. host and connection
 
 \subsection{Testing}
-For the urlparser I have unittesting to check wether the code is following the format \texttt{http\_URL = "http:" "//" host [ ":" port ] [ abs\_path [ "?" query ]]}. There are no error and the unittest can be found in urlparser60.py and in the appendix I have a picture of the unittest if you do not wish to run it.
+The way I tested the server was that in one console I initiated the server. Then I opened two more consoles and tried to download a file from the server simultaneously. This seemed to work fine, both my HTTPClients recieved a Status code 200 OK: Connection to 127.0.0.1 successful and that the response was written to the filename I have given.
+I chose to download a 512MB file as explained in the subsection Performance and validation. Hereafter I checked the checksum (md5sum) for both the files and they matched. This was done in the console window.
 
-The HTTPclient should be able to download a file, this I have tried and after the file is downloaded I have checked the shasum against what it should be.
-The way I do this, is in the console where I write \texttt{./HTTPclient 'website' 'filename'}\footnote{\href{https://download.jetbrains.com/python/pycharm-community-2016.1.3.exe.sha256}{The sha256 sum} and the file I download \href{http://download.jetbrains.com/python/pycharm-community-2016.1.3.exe}{The executable}}. I check the checksum manually, so in my console I run \texttt{shasum -a 256 filename} and it matches the checksum.
-But this does only work with \texttt{.exe} files. If I try to check against a \texttt{.txt} or \text{.html} file then in the top of the file I get a random input in the file i.e. the file changes. I have not been able to solve this, so for now the HTTPclient will only work with an \texttt{.exe} file. As an example to the \texttt{.txt} file error I get, I have used \href{http://anonscm.debian.org/viewvc/webwml/webwml/english/mirror/Mirrors.masterlist?view=co}{this site}. As you can see the first line is \text{Site: ftp-master.debian.org} but when I send a request with my HTTPclient and download the file my first line will be \text{1f90} or something else and the second line is \texttt{Site: ftp-master.debian.org} as in the link. So for now this HTTPclient only works for \texttt{.exe} files.
+I have some unittesting in the file \texttt{parseReqToDict} to test whether it parses the request correctly and is it seems that unittest returns that everything is as expected.
 
+\newpage
+\onecolumn
 %APPENDICES are optional
 %\balancecolumns
 \appendix
 %Appendix A
-\section{Headings in Appendices}
-As seen in the picture below, the the unittest is running as it should, with no errors
- 
+\section{Unittesting}
+\includegraphics[height=15cm, width=20cm, angle=90]{Screenshot1.jpg}
 \newpage
-\begin{figure}[H]
-  \centering
-  \includegraphics[scale=0.7]{unittestting.jpg}
-\end{figure}
+\section{Server with multiple connections}
+\includegraphics[height=15cm, width=20cm, angle=90]{Screenshot2.jpg}
+\newpage
+\section{MD5 Sums for the files}
+\url{http://www.thinkbroadband.com/download/}\\
+5b563100babfef2f2ec9ab2d55e97fd1  100MB.zip\\
+3aa55f03c298b83cd7708e90d289afbd  10MB.zip\\
+286e80b3b7420263038ab06d76774043  1GB.zip\\
+f00be31bb73fe783209497d80aa1de89  1MB.zip\\
+3389a0b30e05ef6613ccbdae5d9ec0bd  200MB.zip\\
+9017804333c820e3b4249130fc989e00  20MB.zip\\
+528972766cd55c26a570829775afd2a8  2MB.zip\\
+2699c63cb6699b2272f78989b09e88b1  50MB.zip\\
+dfe6504e0e8283357a3443234b266246  512MB.zip\\
+b3215c06647bc550406a9c8ccc378756  5MB.zip\\
+
+
 
 
 %\balancecolumns % GM June 2007
