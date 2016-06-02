@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.2.1)  30 MAY 2016 13:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.2.1)  1 JUN 2016 17:03
 entering extended mode
 **"C:/Users/Baby-/Google Drive/KU/Datalogi/2år/Blok 4/DatanetLatex/Assignment3
 Mirza/mirza3.tex"
@@ -429,49 +429,153 @@ File: omsptm.fd
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <7> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 139.
 
-Excluding 'CCSXML' comment. [1{C:/Users/Baby-/AppData/Local/MiKTeX/2.9/pdftex/c
-onfig/pdftex.map}
+Excluding 'CCSXML' comment.
+Overfull \hbox (3.67944pt too wide) in paragraph at lines 202--203
+[]\T1/aer/m/n/9 Although both al-go-rithms are based on math-e-mat-i-cal prob-
+ []
+
+[1{C:/Users/Baby-/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 222.
+<MITKEY.jpg, id=44, 529.98pt x 207.02344pt>
+File: MITKEY.jpg Graphic file (type jpg)
+ <use MITKEY.jpg>
+Package pdftex.def Info: MITKEY.jpg used on input line 225.
+(pdftex.def)             Requested size: 529.97868pt x 207.02292pt.
+
+Overfull \hbox (25.97868pt too wide) in paragraph at lines 225--226
+ [][] 
+ []
+
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.222 \end{document}
-                     [2
+l.228 \newpage
+               [2
 
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 222.
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
+s been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.228 \newpage
+               <./MITKEY.jpg>] <ft.jpg, id=51, 338.01282pt x 563.85657pt>
+File: ft.jpg Graphic file (type jpg)
+
+<use ft.jpg>
+Package pdftex.def Info: ft.jpg used on input line 232.
+(pdftex.def)             Requested size: 338.01198pt x 563.8552pt.
+ <signedkey.jpg, id=52, 381.67593pt x 459.96844pt>
+File: signedkey.jpg Graphic file (type jpg)
+
+<use signedkey.jpg>
+Package pdftex.def Info: signedkey.jpg used on input line 237.
+(pdftex.def)             Requested size: 381.675pt x 459.96732pt.
+ <pfl840.jpg, id=53, 377.15906pt x 480.29437pt>
+File: pfl840.jpg Graphic file (type jpg)
+
+<use pfl840.jpg>
+Package pdftex.def Info: pfl840.jpg used on input line 242.
+(pdftex.def)             Requested size: 377.15814pt x 480.29318pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.244 \end{figure}
+                   [3pdfTeX warning (ext4): destination with the same identifie
+r (name{figure.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.244 \end{figure}
+                   <./ft.jpg>]
+<mitsignedkey.jpg, id=58, 531.48563pt x 288.3272pt>
+File: mitsignedkey.jpg Graphic file (type jpg)
+ <use mitsignedkey.jpg>
+Package pdftex.def Info: mitsignedkey.jpg used on input line 247.
+(pdftex.def)             Requested size: 531.48433pt x 288.32648pt.
+
+Overfull \hbox (27.48433pt too wide) in paragraph at lines 247--248
+ [][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.249 \end{figure}
+                   [4pdfTeX warning (ext4): destination with the same identifie
+r (name{figure.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.249 \end{figure}
+                   <./signedkey.jpg>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.250 
+       [5pdfTeX warning (ext4): destination with the same identifier (name{figu
+re.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.250 
+       <./pfl840.jpg>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 258.
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.258 \end{document}
+                     [6pdfTeX warning (ext4): destination with the same identif
+ier (name{figure.5}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.258 \end{document}
+                     <./mitsignedkey.jpg>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 258.
  (mirza3.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 222.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 222.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 258.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 258.
 Package rerunfilecheck Info: File `mirza3.out' has not changed.
-(rerunfilecheck)             Checksum: 268ABE4EB12729CD936EE36ED1424DFB;250.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 222.
+(rerunfilecheck)             Checksum: 5BB08499F3A50AFF708028307270D70F;326.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 258.
  ) 
 Here is how much of TeX's memory you used:
- 6562 strings out of 493634
- 92684 string characters out of 3141315
- 184928 words of memory out of 3000000
- 9830 multiletter control sequences out of 15000+200000
- 49341 words of font info for 68 fonts, out of 3000000 for 9000
+ 6606 strings out of 493634
+ 93214 string characters out of 3141315
+ 188928 words of memory out of 3000000
+ 9856 multiletter control sequences out of 15000+200000
+ 52489 words of font info for 74 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 41i,10n,34p,359b,477s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,10n,34p,704b,477s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Progra
-m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Fi
-les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Files 
-(x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files (x8
-6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Program Files (x86)/
-MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)/MiKTeX 2
-.9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts
-/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/
-times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri
-8a.pfb>
-Output written on mirza3.pdf (2 pages, 94095 bytes).
+m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Program F
+iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files
+ (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Files (x8
+6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files (x86)/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Program Files (x86)/MiK
+TeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/
+fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/ty
+pe1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/tim
+es/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.
+pfb>
+Output written on mirza3.pdf (6 pages, 348537 bytes).
 PDF statistics:
- 77 PDF objects out of 1000 (max. 8388607)
- 9 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 109 PDF objects out of 1000 (max. 8388607)
+ 15 named destinations out of 1000 (max. 500000)
+ 74 words of extra memory for PDF output out of 10000 (max. 10000000)
 
